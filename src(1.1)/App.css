@@ -1,0 +1,404 @@
+:root {
+  /* Цветовая схема */
+  --bg-dark: #2d2d2d;
+  --bg-darker: #1a1a1a;
+  --bg-light: #3a3a3a;
+  --bg-lighter: #4a4a4a;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --accent-green: #4CAF50;
+  --accent-green-dark: #3e8e41;
+  --accent-blue: #2196F3;
+  --accent-blue-dark: #0b7dda;
+  --accent-red: #f44336;
+  --accent-red-dark: #d32f2f;
+  --border-dark: #4a4a4a;
+  --border-black: #000000;
+  
+  /* Размеры */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+  --space-xxl: 25px;
+  
+  /* Тени */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+  /* Анимации */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* Базовые стили */
+body {
+  color: var(--text-primary);
+  background-color: var(--bg-dark);
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+}
+
+/* Контейнеры */
+.app-container {
+  max-width: 800px;
+  margin-inline: auto;
+  padding: var(--space-xl);
+  min-height: 100vh;
+}
+
+.task-list-container {
+  max-width: 800px;
+  margin-inline: auto;
+  margin-block-start: var(--space-xl);
+  padding: var(--space-xl);
+}
+
+/* Списки */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin-block-start: var(--space-xl);
+}
+
+/* Элементы задач */
+.task-item {
+  background-color: var(--bg-light);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: all var(--transition-normal);
+  margin-block-end: var(--space-md);
+  
+  &:hover {
+    box-shadow: var(--shadow-sm);
+  }
+  
+  &.selected {
+    border-inline-end: 4px solid var(--accent-green);
+    background-color: color-mix(in srgb, var(--accent-green) 15%, var(--bg-dark));
+  }
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: var(--space-sm);
+}
+
+.task-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.task-category {
+  background-color: var(--bg-lighter);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.task-amount {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-block: var(--space-sm);
+}
+
+/* Кнопки и элементы управления */
+.button {
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.delete-btn {
+  background-color: var(--accent-red);
+  color: white;
+  
+  &:hover {
+    background-color: var(--accent-red-dark);
+  }
+}
+
+.edit-btn {
+  background-color: var(--accent-blue);
+  color: white;
+  margin-inline-end: var(--space-md);
+  
+  &:hover {
+    background-color: var(--accent-blue-dark);
+  }
+}
+
+.task-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-block-start: var(--space-md);
+  justify-content: flex-end;
+}
+
+/* Формы */
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.input-field {
+  width: 100%;
+  padding: var(--space-md);
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  
+  &:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-green) 20%, transparent);
+  }
+}
+
+.add-task-button {
+  background-color: var(--accent-green);
+  color: white;
+  padding: var(--space-md);
+  
+  &:hover {
+    background-color: var(--accent-green-dark);
+  }
+}
+
+/* Категории */
+.category-select-container {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.category-select {
+  flex-grow: 1;
+}
+
+/* Модальные окна */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.edit-modal {
+  background-color: var(--bg-dark);
+  padding: var(--space-xxl);
+  border-radius: var(--radius-lg);
+  width: min(90%, 450px);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-dark);
+}
+
+.modal-title {
+  color: var(--text-primary);
+  margin-block: 0 var(--space-xxl);
+  font-size: 1.4rem;
+}
+
+.form-group {
+  margin-block-end: var(--space-xl);
+}
+
+.form-label {
+  display: block;
+  color: var(--text-secondary);
+  margin-block-end: var(--space-sm);
+  font-size: 0.95rem;
+}
+
+.select-field {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md) center;
+  background-size: 15px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  margin-block-start: var(--space-xxl);
+}
+
+.btn-save {
+  background-color: var(--accent-green);
+  color: white;
+  padding: var(--space-md) var(--space-xl);
+  
+  &:hover {
+    background-color: var(--accent-green-dark);
+  }
+}
+
+.btn-cancel {
+  background-color: var(--bg-lighter);
+  color: white;
+  padding: var(--space-md) var(--space-xl);
+  
+  &:hover {
+    background-color: var(--bg-light);
+  }
+}
+
+/* Ошибки */
+.error-message {
+  display: flex;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  background-color: color-mix(in srgb, var(--accent-red) 10%, transparent);
+  color: var(--accent-red);
+  border-radius: var(--radius-sm);
+  margin-block: var(--space-lg);
+}
+
+/* Анимации */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--text-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .edit-modal {
+    padding: var(--space-xl);
+    width: 95%;
+  }
+  
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  
+  .btn-save,
+  .btn-cancel {
+    width: 100%;
+  }
+}
+
+/* Стили для рамок со скошенными углами */
+.purchase-title,
+.amount-title,
+.products-header {
+  border: 2px solid var(--border-black);
+  padding: var(--space-md);
+  position: relative;
+  background: var(--bg-light);
+  margin-block: var(--space-md);
+}
+
+/* Скошенные углы */
+.purchase-title::before,
+.purchase-title::after,
+.amount-title::before,
+.amount-title::after,
+.products-header::before,
+.products-header::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: var(--border-black);
+}
+
+/* Позиционирование уголков */
+.purchase-title::before,
+.amount-title::before,
+.products-header::before {
+  top: -2px;
+  left: -2px;
+  clip-path: polygon(0 0, 0% 100%, 100% 0);
+}
+
+.purchase-title::after,
+.amount-title::after,
+.products-header::after {
+  bottom: -2px;
+  right: -2px;
+  clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+}
+
+/* Стили для таблицы продуктов */
+.products-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-block: var(--space-md);
+}
+
+.products-table,
+.products-table th,
+.products-table td {
+  border: 2px solid var(--border-black);
+}
+
+.products-table th,
+.products-table td {
+  padding: var(--space-md);
+  position: relative;
+  background: var(--bg-light);
+}
+
+.products-table th::before,
+.products-table th::after,
+.products-table td::before,
+.products-table td::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: var(--border-black);
+}
+
+.products-table th::before,
+.products-table td::before {
+  top: -2px;
+  left: -2px;
+  clip-path: polygon(0 0, 0% 100%, 100% 0);
+}
+
+.products-table th::after,
+.products-table td::after {
+  bottom: -2px;
+  right: -2px;
+  clip-path: polygon(100% 100%, 0% 100%, 100% 0);
+}
